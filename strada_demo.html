@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -8,9 +8,11 @@
   <meta name="description" content="">
   <meta name="keywords" content="">
 
+  <meta name="robots" content="noindex, nofollow">
+
   <!-- Favicons -->
-  <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
-  <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -18,13 +20,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
-  <link href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+  <link href="../../vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../vendors/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../../vendors/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="../../vendors/glightbox/css/glightbox.min.css" rel="stylesheet">
 
   <!-- Main CSS File -->
-  <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: Strada
@@ -40,7 +42,7 @@
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container position-relative d-flex align-items-center justify-content-between">
 
-      <a href="{{ url('/') }}" class="logo d-flex align-items-center me-auto me-xl-0">
+      <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.webp" alt=""> -->
         <h1 class="sitename">Strada</h1><span>.</span>
@@ -75,7 +77,7 @@
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      <a class="cta-btn" href="#crud">Get Started</a>
+      <a class="cta-btn" href="#about">Get Started</a>
 
     </div>
   </header>
@@ -124,7 +126,7 @@
                       <span class="tag-label">Exclusive Collection</span>
                       <h3>Redefine What Elegance Means</h3>
                       <p>Perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam eaque ipsa.</p>
-                      <a href="#crud" class="refined-btn">Explore Further <i class="bi bi-arrow-right"></i></a>
+                      <a href="#" class="refined-btn">Explore Further <i class="bi bi-arrow-right"></i></a>
                     </div>
                   </div>
                 </div>
@@ -140,7 +142,7 @@
                       <span class="tag-label">Artisan Craft</span>
                       <h3>Where Vision Meets Precision</h3>
                       <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magni dolores.</p>
-                      <a href="#crud" class="refined-btn">Discover More <i class="bi bi-arrow-right"></i></a>
+                      <a href="#" class="refined-btn">Discover More <i class="bi bi-arrow-right"></i></a>
                     </div>
                   </div>
                 </div>
@@ -156,7 +158,7 @@
                       <span class="tag-label">Limited Edition</span>
                       <h3>Curated Experiences Await You</h3>
                       <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque.</p>
-                      <a href="{{ route('users.create') }}" class="refined-btn">Begin Your Journey <i class="bi bi-arrow-right"></i></a>
+                      <a href="#" class="refined-btn">Begin Your Journey <i class="bi bi-arrow-right"></i></a>
                     </div>
                   </div>
                 </div>
@@ -172,7 +174,7 @@
                       <span class="tag-label">Signature Series</span>
                       <h3>Timeless Design For The Bold</h3>
                       <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates.</p>
-                      <a href="{{ route('users.index') }}" class="refined-btn">View Collection <i class="bi bi-arrow-right"></i></a>
+                      <a href="#" class="refined-btn">View Collection <i class="bi bi-arrow-right"></i></a>
                     </div>
                   </div>
                 </div>
@@ -197,64 +199,6 @@
 
     </section><!-- /Hero Section -->
 
-    <!-- Users CRUD Section -->
-    <section id="crud" class="section">
-      <div class="container">
-        @if(session('success'))
-          <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
-
-        <div class="d-flex justify-content-between align-items-center mb-4">
-          <div>
-            <h2 class="mb-1">Gerenciar Usuários</h2>
-            <p class="text-muted mb-0">Crie, visualize, edite e exclua usuários diretamente desta página.</p>
-          </div>
-          <a href="{{ route('users.create') }}" class="btn btn-primary">Novo usuário</a>
-        </div>
-
-        <div class="table-responsive">
-          <table class="table table-hover align-middle">
-            <thead class="table-light">
-              <tr>
-                <th>#</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Criado em</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              @forelse($users as $user)
-                <tr>
-                  <td>{{ $user->id }}</td>
-                  <td>{{ $user->name }}</td>
-                  <td>{{ $user->email }}</td>
-                  <td>{{ $user->created_at->format('d/m/Y H:i') }}</td>
-                  <td>
-                    <a href="{{ route('users.show', $user) }}" class="btn btn-sm btn-outline-secondary">Ver</a>
-                    <a href="{{ route('users.edit', $user) }}" class="btn btn-sm btn-outline-primary">Editar</a>
-                    <form action="{{ route('users.destroy', $user) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Tem certeza que deseja excluir este usuário?');">
-                      @csrf
-                      @method('DELETE')
-                      <button type="submit" class="btn btn-sm btn-outline-danger">Excluir</button>
-                    </form>
-                  </td>
-                </tr>
-              @empty
-                <tr>
-                  <td colspan="5" class="text-center">Nenhum usuário encontrado.</td>
-                </tr>
-              @endforelse
-            </tbody>
-          </table>
-        </div>
-
-        <div class="mt-3">
-          {{ $users->links() }}
-        </div>
-      </div>
-    </section><!-- /Users CRUD Section -->
-
     <!-- About Section -->
     <section id="about" class="about section">
 
@@ -278,7 +222,7 @@
                 </div>
               </div>
 
-              <a href="#crud" class="cta-link">Discover More <i class="bi bi-arrow-right"></i></a>
+              <a href="#" class="cta-link">Discover More <i class="bi bi-arrow-right"></i></a>
             </div>
           </div>
 
@@ -325,7 +269,7 @@
               <span class="label-tag">Expert Solutions</span>
               <h2>Driving Growth With Purpose-Built Strategies</h2>
               <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae. Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.</p>
-              <a href="{{ route('users.create') }}" class="btn-outline-cta">Schedule a Discussion <i class="bi bi-arrow-right"></i></a>
+              <a href="service-details.html" class="btn-outline-cta">Schedule a Discussion <i class="bi bi-arrow-right"></i></a>
             </div>
           </div>
         </div>
@@ -490,7 +434,7 @@
                 <i class="bi bi-star-fill"></i>
                 <i class="bi bi-star-fill"></i>
               </div>
-              <span>4.8 out of 5 from 1,800+ ratings — relied on by 650+ organizations</span>
+              <span>4.8 out of 5 from 1,800+ ratings â relied on by 650+ organizations</span>
             </div>
 
           </div>
@@ -1250,7 +1194,7 @@
             <div class="info-item">
               <i class="bi bi-envelope"></i>
               <h4>Email</h4>
-              <p>hello@example.com</p>
+              <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cba3aea7a7a48baeb3aaa6bba7aee5a8a4a6">[email&#160;protected]</a></p>
             </div>
           </div><!-- End Info Item -->
 
@@ -1266,7 +1210,7 @@
             <div class="info-item">
               <i class="bi bi-clock"></i>
               <h4>Hours</h4>
-              <p>Mon – Fri: 8AM – 5PM</p>
+              <p>Mon â Fri: 8AM â 5PM</p>
             </div>
           </div><!-- End Info Item -->
         </div>
@@ -1294,7 +1238,7 @@
                 </div>
                 <div class="form-group">
                   <label for="message">Message</label>
-                  <textarea class="form-control" name="message" id="message" rows="5" placeholder="Write your message here…" required=""></textarea>
+                  <textarea class="form-control" name="message" id="message" rows="5" placeholder="Write your message hereâ¦" required=""></textarea>
                 </div>
 
                 <div class="my-3">
@@ -1354,7 +1298,7 @@
                 </div>
                 <div class="contact-item">
                   <i class="bi bi-envelope"></i>
-                  <span>hello@designstudio.com</span>
+                  <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3c54595050537c58594f555b524f4849585553125f5351">[email&#160;protected]</a></span>
                 </div>
               </div>
             </div>
@@ -1468,7 +1412,7 @@
 
             <div class="col-lg-6">
               <div class="copyright">
-                <p>© <span class="sitename">Strada</span>. All rights reserved.</p>
+                <p>Â© <span class="sitename">Strada</span>. All rights reserved.</p>
               </div>
             </div>
 
@@ -1477,6 +1421,13 @@
                 <a href="#">Privacy Policy</a>
                 <a href="#">Terms of Service</a>
                 <a href="#">Cookie Policy</a>
+                <div class="credits">
+                  <!-- All the links in the footer should remain intact. -->
+                  <!-- You can delete the links only if you've purchased the pro version. -->
+                  <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                  <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+                  Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                </div>
               </div>
             </div>
 
@@ -1491,17 +1442,18 @@
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="../../vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../../vendors/php-email-form/validate.js"></script>
+  <script src="../../vendors/swiper/swiper-bundle.min.js"></script>
+  <script src="../../vendors/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="../../vendors/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="../../vendors/glightbox/js/glightbox.min.js"></script>
+  <script src="../../vendors/purecounter/purecounter_vanilla.js"></script>
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
 
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"68c5ca450bae485a842ff76066d69420","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 
 </html>
