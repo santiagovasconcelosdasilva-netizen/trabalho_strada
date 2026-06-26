@@ -13,7 +13,7 @@ class UserController extends Controller
     {
         $users = User::orderBy('created_at', 'desc')->paginate(10);
 
-        return view('welcome', compact('users'));
+        return view('users.dashboard', compact('users'));
     }
 
     public function create()

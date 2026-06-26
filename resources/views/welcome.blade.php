@@ -75,7 +75,7 @@
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      <a class="cta-btn" href="#crud">Get Started</a>
+      <a class="cta-btn" href="{{ route('dashboard') }}">Get Started</a>
 
     </div>
   </header>
@@ -114,6 +114,23 @@
             </script>
             <div class="swiper-wrapper">
 
+              @forelse($slides as $slide)
+              <div class="swiper-slide">
+                <div class="cinema-frame">
+                  <img src="assets/img/slider/slider-6.webp" alt="{{ $slide->title }}">
+                  <div class="frame-overlay"></div>
+                  <div class="frame-content">
+                    <div class="content-inner">
+                      <div class="accent-line"></div>
+                      <span class="tag-label">{{ $slide->tag }}</span>
+                      <h3>{{ $slide->title }}</h3>
+                      <p>{{ $slide->description }}</p>
+                      <a href="{{ route('slides.index') }}" class="refined-btn">Gerenciar Slides <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div><!-- End slide item -->
+              @empty
               <div class="swiper-slide">
                 <div class="cinema-frame">
                   <img src="assets/img/slider/slider-6.webp" alt="">
@@ -124,7 +141,7 @@
                       <span class="tag-label">Exclusive Collection</span>
                       <h3>Redefine What Elegance Means</h3>
                       <p>Perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam eaque ipsa.</p>
-                      <a href="#crud" class="refined-btn">Explore Further <i class="bi bi-arrow-right"></i></a>
+                      <a href="{{ route('dashboard') }}" class="refined-btn">Explore Further <i class="bi bi-arrow-right"></i></a>
                     </div>
                   </div>
                 </div>
@@ -140,7 +157,7 @@
                       <span class="tag-label">Artisan Craft</span>
                       <h3>Where Vision Meets Precision</h3>
                       <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magni dolores.</p>
-                      <a href="#crud" class="refined-btn">Discover More <i class="bi bi-arrow-right"></i></a>
+                      <a href="{{ route('dashboard') }}" class="refined-btn">Discover More <i class="bi bi-arrow-right"></i></a>
                     </div>
                   </div>
                 </div>
@@ -177,6 +194,7 @@
                   </div>
                 </div>
               </div><!-- End slide item -->
+              @endforelse
 
             </div>
           </div>
@@ -196,64 +214,6 @@
       </div>
 
     </section><!-- /Hero Section -->
-
-    <!-- Users CRUD Section -->
-    <section id="crud" class="section">
-      <div class="container">
-        @if(session('success'))
-          <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
-
-        <div class="d-flex justify-content-between align-items-center mb-4">
-          <div>
-            <h2 class="mb-1">Gerenciar Usuários</h2>
-            <p class="text-muted mb-0">Crie, visualize, edite e exclua usuários diretamente desta página.</p>
-          </div>
-          <a href="{{ route('users.create') }}" class="btn btn-primary">Novo usuário</a>
-        </div>
-
-        <div class="table-responsive">
-          <table class="table table-hover align-middle">
-            <thead class="table-light">
-              <tr>
-                <th>#</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Criado em</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              @forelse($users as $user)
-                <tr>
-                  <td>{{ $user->id }}</td>
-                  <td>{{ $user->name }}</td>
-                  <td>{{ $user->email }}</td>
-                  <td>{{ $user->created_at->format('d/m/Y H:i') }}</td>
-                  <td>
-                    <a href="{{ route('users.show', $user) }}" class="btn btn-sm btn-outline-secondary">Ver</a>
-                    <a href="{{ route('users.edit', $user) }}" class="btn btn-sm btn-outline-primary">Editar</a>
-                    <form action="{{ route('users.destroy', $user) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Tem certeza que deseja excluir este usuário?');">
-                      @csrf
-                      @method('DELETE')
-                      <button type="submit" class="btn btn-sm btn-outline-danger">Excluir</button>
-                    </form>
-                  </td>
-                </tr>
-              @empty
-                <tr>
-                  <td colspan="5" class="text-center">Nenhum usuário encontrado.</td>
-                </tr>
-              @endforelse
-            </tbody>
-          </table>
-        </div>
-
-        <div class="mt-3">
-          {{ $users->links() }}
-        </div>
-      </div>
-    </section><!-- /Users CRUD Section -->
 
     <!-- About Section -->
     <section id="about" class="about section">
@@ -278,7 +238,7 @@
                 </div>
               </div>
 
-              <a href="#crud" class="cta-link">Discover More <i class="bi bi-arrow-right"></i></a>
+              <a href="{{ route('dashboard') }}" class="cta-link">Discover More <i class="bi bi-arrow-right"></i></a>
             </div>
           </div>
 
@@ -1274,42 +1234,47 @@
         <div class="row gy-5 mt-2">
           <div class="col-lg-7">
             <div class="form-wrapper">
-              <h3>Send a Message</h3>
-              <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas vestibulum.</p>
+              <h3>Create a New Slide</h3>
+              <p>Add a new slide to the hero carousel section with custom content and call-to-action button.</p>
 
-              <form action="forms/contact.php" method="post" class="php-email-form">
-                <div class="row">
-                  <div class="col-md-6 form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Jane Doe" required="" autocomplete="name">
-                  </div>
-                  <div class="col-md-6 form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" class="form-control" name="email" id="email" placeholder="jane@example.com" required="" autocomplete="email">
-                  </div>
+              <form action="{{ route('slides.store') }}" method="POST" class="php-email-form">
+                @csrf
+
+                <div class="form-group">
+                  <label for="tag">Tag</label>
+                  <input type="text" name="tag" class="form-control" id="tag" placeholder="e.g., Web Development" required value="{{ old('tag') }}">
                 </div>
                 <div class="form-group">
-                  <label for="subject">Subject</label>
-                  <input type="text" class="form-control" name="subject" id="subject" placeholder="How can we help?" required="">
+                  <label for="title">Title</label>
+                  <input type="text" class="form-control" name="title" id="title" placeholder="Slide title" required value="{{ old('title') }}">
                 </div>
                 <div class="form-group">
-                  <label for="message">Message</label>
-                  <textarea class="form-control" name="message" id="message" rows="5" placeholder="Write your message here…" required=""></textarea>
+                  <label for="description">Description</label>
+                  <textarea class="form-control" name="description" id="description" rows="4" placeholder="Write slide description…" required>{{ old('description') }}</textarea>
                 </div>
+
+
 
                 <div class="my-3">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
+                  @if(session('success'))
+                    <div class="alert alert-success">{{ session('success') }}</div>
+                  @endif
+                  @if($errors->any())
+                    <div class="alert alert-danger">
+                      <ul class="mb-0">
+                        @foreach($errors->all() as $error)
+                          <li>{{ $error }}</li>
+                        @endforeach
+                      </ul>
+                    </div>
+                  @endif
                 </div>
 
                 <div class="form-footer">
-                  <button type="submit">Submit</button>
+                  <button type="submit">Create Slide</button>
                   <div class="social-links">
-                    <a href="#" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
-                    <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-                    <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                    <a href="{{ route('slides.index') }}" title="View all slides"><i class="bi bi-list"></i></a>
+                    <a href="{{ route('dashboard') }}" title="Manage users"><i class="bi bi-people"></i></a>
                   </div>
                 </div>
               </form>
