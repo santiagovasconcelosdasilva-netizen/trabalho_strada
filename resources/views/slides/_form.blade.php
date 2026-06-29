@@ -1,3 +1,5 @@
+@csrf
+
 <div class="mb-3">
   <label for="tag" class="form-label">Tag <span class="text-danger">*</span></label>
   <input type="text" class="form-control @error('tag') is-invalid @enderror" id="tag" name="tag" value="{{ old('tag', $slide->tag ?? '') }}" placeholder="Ex: Desenvolvimento Web" required>
@@ -23,14 +25,18 @@
 </div>
 
 <div class="mb-3">
-  <label for="priority" class="form-label">Prioridade <span class="text-danger">*</span></label>
-  <select class="form-select @error('priority') is-invalid @enderror" id="priority" name="priority" required>
-    <option value="">Selecione uma prioridade</option>
-    <option value="baixa" {{ old('priority', $slide->priority ?? '') == 'baixa' ? 'selected' : '' }}>Baixa</option>
-    <option value="média" {{ old('priority', $slide->priority ?? '') == 'média' ? 'selected' : '' }}>Média</option>
-    <option value="alta" {{ old('priority', $slide->priority ?? '') == 'alta' ? 'selected' : '' }}>Alta</option>
-  </select>
+  <label for="priority" class="form-label">Ordem de aparicao <span class="text-danger">*</span></label>
+  <input type="number" class="form-control @error('priority') is-invalid @enderror" id="priority" name="priority" value="{{ old('priority', $slide->priority ?? 1) }}" min="1" max="999" placeholder="Ex: 1" required>
   @error('priority')
+    <div class="invalid-feedback">{{ $message }}</div>
+  @enderror
+</div>
+
+<div class="form-check form-switch mb-3">
+  <input type="hidden" name="is_active" value="0">
+  <input class="form-check-input @error('is_active') is-invalid @enderror" type="checkbox" role="switch" id="is_active" name="is_active" value="1" {{ old('is_active', $slide->is_active ?? true) ? 'checked' : '' }}>
+  <label class="form-check-label" for="is_active">Ativo no welcome</label>
+  @error('is_active')
     <div class="invalid-feedback">{{ $message }}</div>
   @enderror
 </div>

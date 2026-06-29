@@ -38,14 +38,17 @@
         </div>
 
         <div class="mb-4">
-          <label class="text-muted small">PRIORIDADE</label>
+          <label class="text-muted small">ORDEM DE APARICAO</label>
+          <p><span class="badge bg-primary">{{ $slide->priority }}º</span></p>
+        </div>
+
+        <div class="mb-4">
+          <label class="text-muted small">STATUS</label>
           <p>
-            @if($slide->priority === 'alta')
-              <span class="badge bg-danger">Alta</span>
-            @elseif($slide->priority === 'média')
-              <span class="badge bg-warning">Média</span>
+            @if($slide->is_active)
+              <span class="badge bg-success">Ativo no welcome</span>
             @else
-              <span class="badge bg-success">Baixa</span>
+              <span class="badge bg-secondary">Inativo</span>
             @endif
           </p>
         </div>

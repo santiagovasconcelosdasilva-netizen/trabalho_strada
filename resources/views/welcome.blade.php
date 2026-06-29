@@ -75,7 +75,7 @@
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      <a class="cta-btn" href="{{ route('dashboard') }}">Get Started</a>
+      <a class="cta-btn" href="{{ route('slides.index') }}">Gerenciar Slides</a>
 
     </div>
   </header>
@@ -117,7 +117,7 @@
               @forelse($slides as $slide)
               <div class="swiper-slide">
                 <div class="cinema-frame">
-                  <img src="assets/img/slider/slider-6.webp" alt="{{ $slide->title }}">
+                  <img src="{{ $slide->image_path ? asset('storage/' . $slide->image_path) : asset('assets/img/slider/slider-6.webp') }}" alt="{{ $slide->title }}">
                   <div class="frame-overlay"></div>
                   <div class="frame-content">
                     <div class="content-inner">
@@ -141,7 +141,7 @@
                       <span class="tag-label">Exclusive Collection</span>
                       <h3>Redefine What Elegance Means</h3>
                       <p>Perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam eaque ipsa.</p>
-                      <a href="{{ route('dashboard') }}" class="refined-btn">Explore Further <i class="bi bi-arrow-right"></i></a>
+                      <a href="{{ route('slides.index') }}" class="refined-btn">Gerenciar Slides <i class="bi bi-arrow-right"></i></a>
                     </div>
                   </div>
                 </div>
@@ -157,7 +157,7 @@
                       <span class="tag-label">Artisan Craft</span>
                       <h3>Where Vision Meets Precision</h3>
                       <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magni dolores.</p>
-                      <a href="{{ route('dashboard') }}" class="refined-btn">Discover More <i class="bi bi-arrow-right"></i></a>
+                      <a href="{{ route('slides.index') }}" class="refined-btn">Gerenciar Slides <i class="bi bi-arrow-right"></i></a>
                     </div>
                   </div>
                 </div>
@@ -173,7 +173,7 @@
                       <span class="tag-label">Limited Edition</span>
                       <h3>Curated Experiences Await You</h3>
                       <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque.</p>
-                      <a href="{{ route('users.create') }}" class="refined-btn">Begin Your Journey <i class="bi bi-arrow-right"></i></a>
+                      <a href="{{ route('slides.create') }}" class="refined-btn">Criar Slide <i class="bi bi-arrow-right"></i></a>
                     </div>
                   </div>
                 </div>
@@ -189,7 +189,7 @@
                       <span class="tag-label">Signature Series</span>
                       <h3>Timeless Design For The Bold</h3>
                       <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates.</p>
-                      <a href="{{ route('users.index') }}" class="refined-btn">View Collection <i class="bi bi-arrow-right"></i></a>
+                      <a href="{{ route('slides.index') }}" class="refined-btn">Ver Slides <i class="bi bi-arrow-right"></i></a>
                     </div>
                   </div>
                 </div>
@@ -238,7 +238,7 @@
                 </div>
               </div>
 
-              <a href="{{ route('dashboard') }}" class="cta-link">Discover More <i class="bi bi-arrow-right"></i></a>
+              <a href="{{ route('slides.index') }}" class="cta-link">Gerenciar Slides <i class="bi bi-arrow-right"></i></a>
             </div>
           </div>
 
@@ -285,7 +285,7 @@
               <span class="label-tag">Expert Solutions</span>
               <h2>Driving Growth With Purpose-Built Strategies</h2>
               <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae. Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.</p>
-              <a href="{{ route('users.create') }}" class="btn-outline-cta">Schedule a Discussion <i class="bi bi-arrow-right"></i></a>
+              <a href="{{ route('slides.create') }}" class="btn-outline-cta">Criar Slide <i class="bi bi-arrow-right"></i></a>
             </div>
           </div>
         </div>
@@ -1237,7 +1237,7 @@
               <h3>Create a New Slide</h3>
               <p>Add a new slide to the hero carousel section with custom content and call-to-action button.</p>
 
-              <form action="{{ route('slides.store') }}" method="POST" class="php-email-form">
+              <form action="{{ route('slides.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="form-group">
@@ -1254,6 +1254,24 @@
                 </div>
 
 
+
+                <div class="form-group">
+                  <label for="priority">Ordem de aparicao</label>
+                  <input type="number" class="form-control" name="priority" id="priority" min="1" max="999" placeholder="1" required value="{{ old('priority', 1) }}">
+                </div>
+
+                <div class="form-group">
+                  <label for="image_path">Imagem</label>
+                  <input type="file" class="form-control" name="image_path" id="image_path" accept="image/*" required>
+                </div>
+
+                <div class="form-group">
+                  <input type="hidden" name="is_active" value="0">
+                  <label>
+                    <input type="checkbox" name="is_active" value="1" checked>
+                    Ativo no welcome
+                  </label>
+                </div>
 
                 <div class="my-3">
                   @if(session('success'))
@@ -1274,7 +1292,7 @@
                   <button type="submit">Create Slide</button>
                   <div class="social-links">
                     <a href="{{ route('slides.index') }}" title="View all slides"><i class="bi bi-list"></i></a>
-                    <a href="{{ route('dashboard') }}" title="Manage users"><i class="bi bi-people"></i></a>
+                    <a href="{{ route('slides.create') }}" title="Create slide"><i class="bi bi-plus-circle"></i></a>
                   </div>
                 </div>
               </form>

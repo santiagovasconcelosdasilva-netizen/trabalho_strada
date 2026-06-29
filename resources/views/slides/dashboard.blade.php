@@ -21,9 +21,6 @@
             <a class="nav-link" href="{{ url('/') }}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('dashboard') }}">Usuários</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link active" href="{{ route('slides.index') }}">Slides</a>
           </li>
         </ul>
@@ -54,7 +51,6 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
       <div>
         <h1 class="h2">Gerenciar Slides</h1>
-        <p class="text-muted">Crie, visualize, edite e exclua slides do hero section.</p>
       </div>
       <a href="{{ route('slides.create') }}" class="btn btn-primary btn-lg">
         <i class="bi bi-plus-circle"></i> Novo Slide
@@ -73,7 +69,8 @@
                   <th>Tag</th>
                   <th>Título</th>
                   <th>Descrição</th>
-                  <th>Prioridade</th>
+                  <th>Ordem</th>
+                  <th>Status</th>
                   <th style="width: 18%;">Ações</th>
                 </tr>
               </thead>
@@ -91,13 +88,12 @@
                     <td><span class="badge bg-info">{{ $slide->tag }}</span></td>
                     <td>{{ Str::limit($slide->title, 30) }}</td>
                     <td>{{ Str::limit($slide->description, 40) }}</td>
+                    <td><span class="badge bg-primary">{{ $slide->priority }}º</span></td>
                     <td>
-                      @if($slide->priority === 'alta')
-                        <span class="badge bg-danger">Alta</span>
-                      @elseif($slide->priority === 'média')
-                        <span class="badge bg-warning">Média</span>
+                      @if($slide->is_active)
+                        <span class="badge bg-success">Ativo</span>
                       @else
-                        <span class="badge bg-success">Baixa</span>
+                        <span class="badge bg-secondary">Inativo</span>
                       @endif
                     </td>
                     <td>
@@ -120,14 +116,10 @@
               </tbody>
             </table>
           </div>
-
-          <div class="d-flex justify-content-center mt-4">
-            {{ $slides->links() }}
-          </div>
         @else
           <div class="text-center py-5">
             <i class="bi bi-images" style="font-size: 3rem; color: #ccc;"></i>
-            <p class="text-muted mt-3">Nenhum slide encontrado. <a href="{{ route('slides.create') }}">Criar um novo?</a></p>
+            <p class="text-muted mt-3">Nenhum slide encontrado.</p>
           </div>
         @endif
       </div>

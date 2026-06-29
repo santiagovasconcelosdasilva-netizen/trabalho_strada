@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Slide;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class SlideController extends Controller
 {
     public function index()
     {
-        $slides = Slide::orderBy('id', 'desc')->paginate(10);
+        $slides = Slide::orderBy('priority')->orderBy('id')->get();
 
         return view('slides.dashboard', compact('slides'));
     }
@@ -26,8 +27,13 @@ class SlideController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:1000'],
             'image_path' => ['required', 'image', 'mimes:jpeg,png,gif', 'max:2048'],
-            'priority' => ['required', 'in:baixa,média,alta'],
+            'priority' => ['required', 'integer', 'min:1', 'max:999'],
+            'is_active' => ['nullable', 'boolean'],
         ]);
+
+        if (Schema::hasColumn('slides', 'is_active')) {
+            $validated['is_active'] = $request->boolean('is_active');
+        }
 
         if ($request->hasFile('image_path')) {
             $validated['image_path'] = $request->file('image_path')->store('slides', 'public');
@@ -55,8 +61,13 @@ class SlideController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:1000'],
             'image_path' => ['nullable', 'image', 'mimes:jpeg,png,gif', 'max:2048'],
-            'priority' => ['required', 'in:baixa,média,alta'],
+            'priority' => ['required', 'integer', 'min:1', 'max:999'],
+            'is_active' => ['nullable', 'boolean'],
         ]);
+
+        if (Schema::hasColumn('slides', 'is_active')) {
+            $validated['is_active'] = $request->boolean('is_active');
+        }
 
         if ($request->hasFile('image_path')) {
             // Delete old image if exists

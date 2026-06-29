@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('slides', function (Blueprint $table) {
-            $table->unsignedInteger('priority')->default(1);
+            $table->boolean('is_active')->default(true);
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('slides', function (Blueprint $table) {
-            $table->dropColumn('priority');
+            $table->dropColumn('is_active');
         });
     }
 };
